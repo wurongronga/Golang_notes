@@ -1,1 +1,2 @@
-# Golang_notes
+# Go tour
+
