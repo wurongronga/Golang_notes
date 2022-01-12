@@ -1,4 +1,4 @@
-# Go tour
+# Go tour - packages,variables, and functions
 
 ### Exported names
 
@@ -48,6 +48,10 @@ A `return` statement without arguments returns the named return values. This is 
 
 Naked return statements should be used only in short functions, as with the example shown here. They can harm readability in longer functions.
 {% endhint %}
+
+### Packages
+
+a package is a way to group functions, and it's made up of all the files in the same directory
 
 ### Variables
 
