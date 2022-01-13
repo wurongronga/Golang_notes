@@ -124,3 +124,74 @@ func main() {
 	)
 }
 ```
+
+### Switch
+
+a shorter way to write a sequence of `if - else` statements
+
+```
+package main
+
+import (
+	"fmt"
+	"runtime"
+)
+
+func main() {
+	fmt.Print("Go runs on ")
+	switch os := runtime.GOOS; os {
+	case "darwin":
+		fmt.Println("OS X.")
+	case "linux":
+		fmt.Println("Linux.")
+	default:
+		// freebsd, openbsd,
+		// plan9, windows...
+		fmt.Printf("%s.\n", os)
+	}
+}
+
+```
+
+Switch cases evaluate cases from top to bottom, stopping when a case succeeds.
+
+### Switch with no condition
+
+```
+func main() {
+	t := time.Now()
+	switch {
+	case t.Hour() < 12:
+		fmt.Println("Good morning!")
+	case t.Hour() < 17:
+		fmt.Println("Good afternoon.")
+	default:
+		fmt.Println("Good evening.")
+	}
+```
+
+### Defer
+
+The deferred call's arguments are evaluated immediately, but the function call is not executed until the surrounding function returns.
+
+_Defer_ is used to ensure that a function call is performed later in a program’s execution, usually for purposes of cleanup. `defer` is often used where e.g. `ensure` and `finally` would be used in other languages.
+
+Deferred function calls are pushed onto a stack.
+
+When a function returns, its deferred calls are executed in last-in-first-out order.
+
+```
+import "fmt"
+
+func main() {
+	fmt.Println("counting")
+
+	for i := 0; i < 10; i++ {
+		defer fmt.Println(i)
+	}
+
+	fmt.Println("done")
+}
+
+```
+
