@@ -209,7 +209,7 @@ t := []string{"g", "h", "i"}
 fmt.Println("dcl:", t)
 ```
 
-Slices can be composed into multi-dimensional data structures. The length of the inner slices can vary, unlike with multi-dimensional arrays.
+Slices can be composed into multi-dimensional data structures. The length of the inner slices can vary, unlike with multi-dimensional arrays. Also, slices can contain any type, including other slices.
 
 ```
 twoD := make([][]int, 3)
@@ -245,3 +245,62 @@ a[:10]
 a[0:]
 a[:]
 ```
+
+#### Slice length and capacity
+
+A slice has both a _length_ and a _capacity_.
+
+The length of a slice is the number of elements it contains.
+
+The capacity of a slice is the number of elements in the underlying array, counting from **the first element in the slice**.
+
+`len(s)` and `cap(s)`.
+
+#### Nil slices
+
+The zero value of a slice is `nil`.
+
+A nil slice has a length and capacity of 0 and has no underlying array.
+
+
+
+### Range
+
+The `range` form of the `for` loop iterates over a slice or map.
+
+When ranging over a slice, two values are returned for each iteration. The first is the index, and the second is a copy of the element at that index.
+
+```
+var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+
+func main() {
+	for i, v := range pow {
+		fmt.Printf("2**%d = %d\n", i, v)
+	}
+}
+output:
+2**0 = 1
+2**1 = 2
+2**2 = 4
+2**3 = 8
+2**4 = 16
+2**5 = 32
+2**6 = 64
+2**7 = 128
+```
+
+
+
+You can skip the index or value by assigning to `_`.
+
+```
+for i, _ := range pow
+for _, value := range pow
+```
+
+If you only want the index, you can omit the second variable.
+
+```
+for i := range pow
+```
+
