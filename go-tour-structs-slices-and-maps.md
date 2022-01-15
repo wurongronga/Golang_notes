@@ -304,3 +304,93 @@ If you only want the index, you can omit the second variable.
 for i := range pow
 ```
 
+### Maps
+
+A map maps keys to values.
+
+<mark style="background-color:blue;">The zero value of a map is</mark> <mark style="background-color:blue;"></mark><mark style="background-color:blue;">`nil`</mark><mark style="background-color:blue;">. A</mark> <mark style="background-color:blue;"></mark><mark style="background-color:blue;">`nil`</mark> <mark style="background-color:blue;"></mark><mark style="background-color:blue;">map has no keys, nor can keys be added. 此时add content会出现panic。</mark>
+
+<mark style="background-color:blue;">The</mark> <mark style="background-color:blue;"></mark><mark style="background-color:blue;">`make`</mark> <mark style="background-color:blue;"></mark><mark style="background-color:blue;">function returns a map of the given type, initialized and ready for use. 此时value具有初始值而不是nil。</mark>
+
+```
+package main
+
+import "fmt"
+
+type Vertex struct {
+	Lat, Long float64
+}
+
+var m map[string]Vertex
+
+func main() {
+	m = make(map[string]Vertex)
+	m["Bell Labs"] = Vertex{
+		40.68433, -74.39967,
+	}
+	fmt.Println(m["Bell Labs"])
+}
+
+```
+
+```
+ackage main
+
+import "fmt"
+
+type Vertex struct {
+	Lat, Long float64
+}
+
+var m = map[string]Vertex{
+	"Bell Labs": Vertex{
+		40.68433, -74.39967,
+	},
+	"Google": Vertex{
+		37.42202, -122.08408,
+	},
+}
+
+func main() {
+	printlin(m)
+}
+
+```
+
+
+
+### Mutating Maps
+
+Insert or update an element in map `m`:
+
+```
+m[key] = elem
+```
+
+Retrieve an element:
+
+```
+elem = m[key]
+```
+
+Delete an element:
+
+```
+delete(m, key)
+```
+
+Test that a key is present with a two-value assignment:
+
+```
+elem, ok = m[key]
+```
+
+If `key` is in `m`, `ok` is `true`. If not, `ok` is `false`.
+
+If `key` is not in the map, then `elem` is the zero value for the map's element type.
+
+**Note:** If `elem` or `ok` have not yet been declared you could use a short declaration form:
+
+```
+elem, ok := m[key]
+```
