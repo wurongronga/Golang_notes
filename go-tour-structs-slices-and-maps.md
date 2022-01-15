@@ -394,3 +394,63 @@ If `key` is not in the map, then `elem` is the zero value for the map's element 
 ```
 elem, ok := m[key]
 ```
+
+### Function values
+
+Functions are values too. They can be passed around just like other values.
+
+Function values may be used as function arguments and return values.
+
+```
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func compute(fn func(float64, float64) float64) float64 {
+	return fn(3, 4)
+}
+
+func main() {
+	hypot := func(x, y float64) float64 {
+		return math.Sqrt(x*x + y*y)
+	}
+	fmt.Println(hypot(5, 12))
+
+	fmt.Println(compute(hypot))
+	fmt.Println(compute(math.Pow))
+}
+```
+
+### Function closures
+
+Go supports [_anonymous functions_](http://en.wikipedia.org/wiki/Anonymous\_function), which can form [_closures_](http://en.wikipedia.org/wiki/Closure\_\(computer\_science\)). Anonymous functions are useful when you want to define a function inline without having to name it. A closure is a function value that references variables from outside its body. The function may access and assign to the referenced variables; in this sense the function is "bound" to the variables.
+
+For example, the `adder` function returns a closure. Each closure is bound to its own `sum` variable.
+
+```
+package main
+
+import "fmt"
+
+func adder() func(int) int { // 这个func(int)是什么？
+	sum := 0
+	return func(x int) int {
+		sum += x
+		return sum
+	}
+}
+
+func main() {
+	pos, neg := adder(), adder()
+	for i := 0; i < 10; i++ {
+		fmt.Println(
+			pos(i),
+			neg(-2*i),
+		)
+	}
+}
+```
+
